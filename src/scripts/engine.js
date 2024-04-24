@@ -8,17 +8,30 @@ const state = {
     values : {
         timerId: null,
         hitPosition: 0,
-        countDownTimerId: setInterval(countDown, 1000),
         result: 0,
         time: 60,
+    },
+    actions : {
+        countDownTimerId: setInterval(countDown, 1000),
     }
 
+
 };
+
+function playSound (audioName) {
+    let audio = new Audio(`..//audios/${audioName}.mp3`);
+    audio.volume = 1 ; 
+    audio.play();
+}
+
 function countDown() {
     state.values.time --;
     state.view.tempoRestante.textContent = state.values.time;
 
     if(state.values.time <= 0){
+        clearInterval(state.actions.countDownTimerId)
+        clearInterval(state.actions.TimerId)
+        playSound("gameover")
         alert("Game over! O seu resultado foi: " + state.values.result)
     }
 }
@@ -37,6 +50,7 @@ function moveEnemy() {
     state.values.timerId = setInterval(randomSquare, 600);
 }
 
+
 function addListenerHitBox() {
     state.view.squares.forEach((square) => {
         square.addEventListener("mousedown", () =>{
@@ -44,12 +58,14 @@ function addListenerHitBox() {
                 state.values.result ++ ;
                 state.view.pontuacao.textContent = state.values.result;
                 state.values.hitPosition = null;
+                playSound("hit");
             }
         });
     });       
 }
 
 function init() {
+    
     moveEnemy();
     addListenerHitBox();
 }
