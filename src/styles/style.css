@@ -1,3 +1,15 @@
+#bottom{
+    background-color: yellow;
+    width: 25rem;
+    /* align-items: center; */
+    justify-content: center;
+    margin: 5rem auto;
+    padding: 2rem;
+    border-radius: 2rem;
+    border: 10px solid #0095ff;
+
+}
+
 .container{
     display: flex;
     flex-direction: column;
