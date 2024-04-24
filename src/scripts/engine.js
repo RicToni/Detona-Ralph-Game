@@ -6,7 +6,9 @@ const state = {
         pontuacao: document.querySelector("#pontuacao")
     },
     values : {
-
+        timerId: null,
+        hitPosition: 0,
+        result: 0,
     }
 
 };
@@ -19,14 +21,27 @@ function randomSquare(){
     let randomNumber = Math.floor(Math.random() * 9);
     let randomSquare = state.view.squares[randomNumber];
     randomSquare.classList.add("enemy")
+    state.values.hitPosition = randomSquare.id
+}
+function moveEnemy() {
+    state.values.timerId = setInterval(randomSquare, 600);
 }
 
 function addListenerHitBox() {
-    state.view.squares;array.forEach((square) =>{});       
+    state.view.squares.forEach((square) => {
+        square.addEventListener("mousedown", () =>{
+            if(square.id === state.values.hitPosition) {
+                state.values.result ++ ;
+                state.view.pontuacao.textContent = state.values.result;
+                state.values.hitPosition = null;
+            }
+        });
+    });       
 }
 
 function init() {
-    randomSquare()
+    moveEnemy();
+    addListenerHitBox();
 }
 
 init();
