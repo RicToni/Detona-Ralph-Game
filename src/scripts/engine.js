@@ -8,10 +8,20 @@ const state = {
     values : {
         timerId: null,
         hitPosition: 0,
+        countDownTimerId: setInterval(countDown, 1000),
         result: 0,
+        time: 60,
     }
 
 };
+function countDown() {
+    state.values.time --;
+    state.view.tempoRestante.textContent = state.values.time;
+
+    if(state.values.time <= 0){
+        alert("Game over! O seu resultado foi: " + state.values.result)
+    }
+}
 
 function randomSquare(){
     state.view.squares.forEach((square) => {
